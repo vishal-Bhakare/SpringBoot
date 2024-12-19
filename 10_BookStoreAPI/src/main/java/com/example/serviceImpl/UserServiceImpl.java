@@ -89,14 +89,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean login(String emailId, String password) {
+    public String login(String emailId, String password) {
         User user = repo.findByEmailId(emailId)
-                .orElseThrow(() -> new RuntimeException("Invalid email or password : " + emailId));
+                .orElseThrow(() -> new RuntimeException("Invalid email or password: " + emailId));
         if (user.getPassword().equals(password)) {
-            return true;
+            return "Login successfully......";
         }
-        return false;
+        return "Invalid email or password";
     }
+
 
     @Override
     public String reSetPassword(String emailId, String currentPassword, UserDto dto) {

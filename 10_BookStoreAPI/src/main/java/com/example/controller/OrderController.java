@@ -17,7 +17,6 @@ public class OrderController {
 
     @Autowired
     private OrderService service;
-
     @PostMapping("/placeOrder")
     public ResponseEntity<String> placeOrder(@RequestBody OrderDto dto){
         return new ResponseEntity<>(service.placeOrder(dto), HttpStatus.OK);
@@ -39,6 +38,4 @@ public class OrderController {
         List<Order> orders = service.getAllOrdersForUser(userId);
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
-
-
 }

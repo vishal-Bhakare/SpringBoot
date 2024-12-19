@@ -16,7 +16,7 @@ public interface UserService {
 
     public String deleteUserById(Long id);
 
-    public boolean login(String emailId, String password);
+    public String login(String emailId, String password);
 
     public String reSetPassword(String emailId, String password, UserDto dto);
 

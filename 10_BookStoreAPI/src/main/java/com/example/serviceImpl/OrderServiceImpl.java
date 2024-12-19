@@ -28,6 +28,31 @@ public class OrderServiceImpl implements OrderService {
         User user = userRepo.findById(orderDto.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found with ID: " + orderDto.getUserId()));
 
+        Book book = bookRepo.findAll().stream()
+                .filter(b -> b.getBookQuantity() > 0)
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("No books available in stock"));
+
+        if (book.getBookQuantity() < orderDto.getQuantity()) {
+            throw new RuntimeException("Insufficient stock for the book: " + book.getBookName());
+        }
+        book.setBookQuantity(book.getBookQuantity() - orderDto.getQuantity());
+        bookRepo.save(book);
+        Order order = new Order();
+        order.setOrderDate(LocalDate.now());
+        order.setQuantity(orderDto.getQuantity());
+        order.setAddress(orderDto.getAddress());
+        order.setUser(user);
+        order.setBook(book);
+        order.setCancel(false);
+        orderRepo.save(order);
+        return "Order placed successfully for Book: " + book.getBookName();
+    }
+  /* @Override
+    public String placeOrder(OrderDto orderDto) {
+        User user = userRepo.findById(orderDto.getUserId())
+                .orElseThrow(() -> new RuntimeException("User not found with ID: " + orderDto.getUserId()));
+
         Book book = bookRepo.findById(orderDto.getBookId())
                 .orElseThrow(() -> new RuntimeException("Book not found with ID: " + orderDto.getBookId()));
 
@@ -45,7 +70,7 @@ public class OrderServiceImpl implements OrderService {
         order.setCancel(false);
         orderRepo.save(order);
         return "Order placed successfully for Book: " + book.getBookName();
-    }
+    }*/
 
     @Override
     public String cancelOrder(Long orderId) {
@@ -70,5 +95,4 @@ public class OrderServiceImpl implements OrderService {
                 .orElseThrow(() -> new RuntimeException("User not found for ID: " + userId));
         return orderRepo.findByUserAndCancelFalse(user);
     }
-
 }

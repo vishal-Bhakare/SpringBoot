@@ -51,10 +51,10 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Boolean> login(@RequestBody Map<String, String> loginDetails) {
+    public ResponseEntity<?> login(@RequestBody Map<String, String> loginDetails) {
         String emailId = loginDetails.get("emailId");
         String password = loginDetails.get("password");
-        boolean loginSuccess = service.login(emailId, password);
+        String loginSuccess = service.login(emailId, password);
         return new ResponseEntity<>(loginSuccess, HttpStatus.OK);
     }
 

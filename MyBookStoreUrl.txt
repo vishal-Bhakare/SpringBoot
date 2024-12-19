@@ -1,0 +1,257 @@
+
+                                               Book Store Api URL and Data
+
+User class
+
+
+User Post Method:
+
+url : http://localhost:9090/api/users/add
+Data : {
+    "firstName": "Om",
+    "lastName": "Kakade",
+    "dob": "2000-01-17",
+    "registerdDate": "2011-11-4",
+    "updateDate": "2024-05-12",
+    "password": "om.kakade@2000",
+    "emailId": "omkakade@gmail.com",
+    "role": "finance"
+}
+
+User Get Method :
+
+Url : http://localhost:9090/api/users/getUser/{id}
+url : http://localhost:9090/api/users/getAllUsers
+
+Update User Put Method :
+
+URL: http://localhost:9090/api/users/update/{id}
+
+{
+    "firstName": "John",
+    "lastName": "Doe Updated",
+    "dob": "1990-05-10",
+    "registeredDate": "2024-01-01",
+    "updatedDate": "2024-12-15",
+    "password": "newpassword123",
+    "emailId": "john.doe@example.com",
+    "role": "USER"
+}
+ Delete User by ID
+URL:http://localhost:9090/api/users/delete/{id}
+
+Login
+URL: http://localhost:9090/api/users/login
+HTTP Method: POST
+
+{
+    "emailId": "vishalbhakre@gmail.com",
+    "password": "vishal.bhakare@2000"
+}
+
+ Reset Password
+URL: http://localhost:9090/api/users/reset
+HTTP Method: POST
+
+{
+    "emailId": "vishalbhakre@gmail.com",
+    "currentPassword": "vishal.bhakare@2000",
+    "userDto": {
+        "password": "newpassword123"
+    }
+}
+
+Forget Password
+URL: /api/users/forget
+HTTP Method: POST
+
+{
+    "emailId": "vishalbhakre@gmail.com"
+}
+
+-------------------------------------------------------------------------------------------------------------------------
+
+Book Class 
+
+
+1. Add Book
+URL: http://localhost:9090/api/books/add
+HTTP Method: POST
+Request Body (JSON):
+json
+Copy code
+{
+    "bookName": "Effective Java",
+    "bookAuthor": "Joshua Bloch",
+    "bookDescriptions": "A comprehensive guide to best practices in Java.",
+    "bookLogo": "logo_url_here",
+    "bookPrice": 45.99,
+    "bookQuantity": 100
+}
+Response: Book added successfully.
+
+
+2. Get Book by ID
+URL: http://localhost:9090/api/books/getBook/{id}
+HTTP Method: GET
+
+3. Get All Books
+URL: http://localhost:9090/api/books/getAllBooks
+HTTP Method: GET
+
+4. Update Book
+URL: http://localhost:9090/api/books/update/{id}
+HTTP Method: PUT
+{
+    "bookName": "Effective Java 3rd Edition",
+    "bookAuthor": "Joshua Bloch",
+    "bookDescriptions": "Updated version of best practices in Java.",
+    "bookLogo": "updated_logo_url_here",
+    "bookPrice": 50.99,
+    "bookQuantity": 120
+}
+Response: Book updated successfully.
+
+
+5. Delete Book by ID
+URL: http://localhost:9090/api/books/delete/{id}
+HTTP Method: DELETE
+
+
+6. Change Book Quantity
+URL: http://localhost:9090/api/books/ChangeBookQuantity/{id}
+HTTP Method: PUT
+
+7. Change Book Price
+URL: http://localhost:9090/api/books/changeprice/{id}
+HTTP Method: PUT
+
+{
+    "bookPrice": 49.99
+}
+Response: Book price updated successfully.
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+### Postman Data for CartController
+
+---
+
+#### 1. **Add to Cart**
+- **URL:http://localhost:9090/api/cart/addToCart`
+- **HTTP Method:** POST
+- **Request Body (JSON):**
+```json
+{
+    "userId": 1,
+    "bookId": 101,
+    "quantity": 2
+}
+```
+- **Response:** `Book added to cart successfully.`
+
+---
+
+#### 2. **Remove from Cart**
+- **URL:http://localhost:9090/api/cart/remove/{id}`
+- **HTTP Method:** DELETE
+
+---
+
+#### 3. **Remove All Items by User ID**
+- **URL:http://localhost:9090/api/cart/removeuser/{id}`
+- **HTTP Method:** DELETE
+
+---
+
+#### 4. **Update Cart Quantity**
+- **URL:http://localhost:9090/api/cart/updateQuantity/{cartId}`
+- **HTTP Method:** PATCH
+{
+    "quantity": 5
+}
+
+#### 5. **Get All Cart Items for a User**
+- **URL:http://localhost:9090/api/cart/getAllCartItemsForUsers/{id}`
+- **HTTP Method:** GET
+
+#### 6. **Get All Cart Items**
+- **URL:http://localhost:9090/api/cart/getAllCartItems`
+- **HTTP Method:** GET
+
+--------------------------------------------------------------------------------------------------------------------
+
+Postman Data for OrderController
+1. Place an Order
+URL: http://localhost:9090/api/order/placeOrder
+HTTP Method: POST
+{
+    "userId": 1,
+    "bookId": 101,
+    "quantity": 2,
+    "address": "123 Main Street, Cityville"
+}
+
+
+2. Cancel an Order
+URL: http://localhost:9090/api/order/cancelOrder/{orderId}
+HTTP Method: POST
+
+3. Get All Non-Canceled Orders
+URL: http://localhost:9090/api/order/getAllOrders
+HTTP Method: GET
+
+
+4. Get All Orders for a User
+URL: http://localhost:9090/api/order/getOrdersForUser/{userId}
+HTTP Method: GET
+
+------------------------------------------------------------------------------------------------------------------
+Postman Data for WishListController
+1. Add to Wishlist
+URL: http://localhost:9090/api/wishlist/addWishList
+HTTP Method: POST
+[
+    {
+        "userId": 1,
+        "bookId": 101
+    },
+    {
+        "userId": 1,
+        "bookId": 102
+    }
+]
+Response: Wishlist items added successfully.
+2. Get Wishlist by User
+URL: http://localhost:9090/api/wishlist/getWishListByUser/{userId}
+HTTP Method: GET
+
+
+3. Remove from Wishlist
+URL: http://localhost:9090/api/wishlist/removeFromWishList/{userId}/{bookId}
+HTTP Method: DELETE
+
+---------------------------------------------------------------------------------------------------------------------
+
+Postman Data for FeedbackController
+
+1. Add Feedback
+URL: http://localhost:9090/api/feedback/add
+HTTP Method: POST
+{
+    "userId": 1,
+    "bookId": 101,
+    "rating": 5,
+    "comment": "Excellent book!"
+}
+
+
+2. Get Feedback by Book
+URL: http://localhost:9090/api/feedback/getbook/{bookId}
+HTTP Method: GET
+
+
+3. Get Feedback by User
+URL: /api/feedback/user/{userId}
+HTTP Method: GET
+
